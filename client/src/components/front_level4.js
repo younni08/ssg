@@ -8,7 +8,7 @@ const Flevel4 = () => {
                     <span>MVP 대행 후기</span>
                 </div>
                 <div className="level4_list">
-                    <div className="leve4_reviewbox">
+                    <div className="leve4_reviewbox1">
                         <div className="leve4_reviewbox_levl1">
                             <span>MVP 85만작 후기</span>
                         </div>
@@ -23,12 +23,12 @@ const Flevel4 = () => {
                             <span>더보기</span>
                         </div>
                     </div>
-                    <div className="leve4_reviewbox">
+                    <div className="leve4_reviewbox2">
                         <div className="leve4_reviewbox_levl1">
                             <span>45만작 후기!!</span>
                         </div>
                         <div className="leve4_reviewbox_levl2">
-                        <span>ID :</span>
+                            <span>ID :</span>
                             <span>아심뽀델</span>
                         </div>
                         <div className="leve4_reviewbox_levl3">
@@ -38,7 +38,7 @@ const Flevel4 = () => {
                             <span>더보기</span>
                         </div>
                     </div>
-                    <div className="leve4_reviewbox">
+                    <div className="leve4_reviewbox3">
                         <div className="leve4_reviewbox_levl1">
                             <span>mvp 골드 대리작 후기</span>
                         </div>
@@ -53,7 +53,7 @@ const Flevel4 = () => {
                             <span>더보기</span>
                         </div>
                     </div>
-                    <div className="leve4_reviewbox">
+                    <div className="leve4_reviewbox4">
                         <div className="leve4_reviewbox_levl1">
                             <span>mvp 67만원 후기</span>
                         </div>

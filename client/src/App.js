@@ -4,7 +4,9 @@ import Flevel3 from "./components/front_level3";
 import Flevel4 from "./components/front_level4";
 import Flevel5 from "./components/front_level5";
 import Notification from "./components/notification";
+import Article from "./components/article";
 import Navi from "./components/navi"
+// import {}
 
 
 const App = () => {
@@ -15,11 +17,14 @@ const App = () => {
                 <div className="front_level1">
                     <img src="./front.png" alt="front" />
                 </div>
-                {/* <Flevel2 />
-                <Flevel3 />
-                <Flevel4 />
-                <Flevel5 /> */}
-                <Notification />
+                <div>
+                    <Flevel2 />
+                    <Flevel3 />
+                    <Flevel4 />
+                    <Flevel5 />
+                </div>
+                {/* <Notification /> */}
+                {/* <Article /> */}
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ const Navi = () => {
     return (
         <div className="navi">
             <div className="navi_left">
-                logo
+                <img src="./logo.png" />
             </div>
             <div className="navi_right">
                 <div>

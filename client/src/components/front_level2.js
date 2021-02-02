@@ -10,11 +10,14 @@ const Flevel2 = () => {
                     <span>클릭하시면 카톡상담으로 이동합니다</span>
                 </div>
             </div>
-            <div className="front_level2_mid">
-                <div>
-                    <i className="xi-lock-o xi-2x"></i><span>로그인</span>
-                </div>
-                <div>
+            <div className="front_level2_rr">
+                <div className="front_level2_mid">
+                    <div className="front_login_leftt">
+                        <div>
+                            <i className="xi-lock-o xi-4x"></i>
+                            <span>로그인</span>
+                        </div>
+                    </div>
                     <div className="front_login_left">
                         <div className="front_login_left_level1">
                             <span>아이디</span>
@@ -32,24 +35,24 @@ const Flevel2 = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="front_level2_right">
-                <div className="front_product_left">
-                    <span><i className="xi-gift-o xi-4x"></i></span>
-                    <span>Best</span>
-                </div>
-                <div className="front_product_right">
-                    <div className="front_product_right_leve1l">
-                        <span><i className="xi-star-o xi-x"></i> MVP대행 45만원</span>
-                        <span>구매하기</span>
+                <div className="front_level2_right">
+                    <div className="front_product_left">
+                        <span><i className="xi-gift-o xi-4x"></i></span>
+                        <span>Best</span>
                     </div>
-                    <div className="front_product_right_leve1l">
-                        <span><i className="xi-star-o xi-x"></i> 넥슨 캐시 10만원</span>
-                        <span>구매하기</span>
-                    </div>
-                    <div className="front_product_right_leve1l">
-                        <span><i className="xi-star-o xi-x"></i> 메이플 포인트 10만원</span>
-                        <span>구매하기</span>
+                    <div className="front_product_right">
+                        <div className="front_product_right_leve1l">
+                            <span><i className="xi-star-o xi-x"></i> MVP대행 45만원</span>
+                            <span>구매하기</span>
+                        </div>
+                        <div className="front_product_right_leve1l">
+                            <span><i className="xi-star-o xi-x"></i> 넥슨 캐시 10만원</span>
+                            <span>구매하기</span>
+                        </div>
+                        <div className="front_product_right_leve1l">
+                            <span><i className="xi-star-o xi-x"></i> 메이플 포인트 10만원</span>
+                            <span>구매하기</span>
+                        </div>
                     </div>
                 </div>
             </div>
