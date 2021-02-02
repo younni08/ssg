@@ -20,11 +20,11 @@ const Flevel2 = () => {
                     </div>
                     <div className="front_login_left">
                         <div className="front_login_left_level1">
-                            <span>아이디</span>
+                            <span><i className="xi-profile-o xi-x"></i></span>
                             <input type="text" />
                         </div>
                         <div className="front_login_left_level1">
-                            <span>비밀 번호</span>
+                            <span><i className="xi-lock-o xi-x"></i></span>
                             <input type="password" />
                         </div>
                     </div>
