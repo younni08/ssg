@@ -101,9 +101,13 @@ footer > div > div:last-child span{
 }
 .front_level1{
   display:flex;
+  justify-content: center;
   width:100%;
 }
-.front_level1 > img{
+.front_level1 a{
+  width:100%;
+}
+.front_level1 img{
   width:100%;
 }
 /* --------------------- body_level2 ------------------------------ */
@@ -112,6 +116,9 @@ footer > div > div:last-child span{
   width:100%;
   justify-content: center;
   margin:-10px 0px 0px 0px;
+}
+.front_level2_mobile{
+  display:none;
 }
 .front_level2_left{
   display:flex;
@@ -215,6 +222,7 @@ footer > div > div:last-child span{
   border-radius: 5px;
 }
 .front_login_left_level1 > input{
+  width:100%;
   border:none;
   background:#eaeaea;
 }

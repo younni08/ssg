@@ -44,7 +44,9 @@ const App = () => {
                 </div>
                 <div className="app_body">
                     <div className="front_level1">
-                        <img src="./front.png" alt="front" />
+                        <Link to="/">
+                            <img src="./front.png" alt="front" />
+                        </Link>
                     </div>
                     <Switch>
                         <Route path="/article">
