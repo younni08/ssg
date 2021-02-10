@@ -1,6 +1,7 @@
 // default
 const express = require("express");
 const bodyParser = require("body-parser");
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 // const fs = require("fs");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Import Routes
 const api = require("./api.js");
 
-app.use("./api.js", api);
+// app.use('/api', createProxyMiddleware({ target: 'localhost/8001', changeOrigin: true }));
+app.use("/api", api);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

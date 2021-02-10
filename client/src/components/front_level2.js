@@ -1,6 +1,16 @@
-import React from "react";
+import React,{useState} from "react";
+import axios from "axios";
 
 const Flevel2 = () => {
+    const [uid,setUid] = useState("");
+    const [upw,setUpw] = useState("");
+
+    const checkLogin = () => {
+        console.log("aa")
+
+    }
+
+
     return (
         <div>
 
@@ -31,7 +41,7 @@ const Flevel2 = () => {
                             </div>
                         </div>
                         <div className="front_login_right">
-                            <span>로그인</span>
+                            <span onClick={checkLogin}>로그인</span>
                             <div>
                                 <span>회원가입</span>
                             </div>

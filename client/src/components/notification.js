@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const Notification = () => {
     return ( 
@@ -45,6 +46,7 @@ const Notification = () => {
                     </div>
                 </div>
                 <div className="board_page">
+                    <span></span>
                     <div>
                         <span>이전</span>
                         <span>1</span>
@@ -53,6 +55,9 @@ const Notification = () => {
                         <span>4</span>
                         <span>이후</span>
                     </div>
+                    <Link to="/write">
+                        <span>글쓰기</span>
+                    </Link>
                 </div>
             </div>
         </div>

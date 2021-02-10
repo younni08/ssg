@@ -5,6 +5,8 @@ import Flevel4 from "./components/front_level4";
 import Flevel5 from "./components/front_level5";
 import Notification from "./components/notification";
 import Article from "./components/article";
+import Write from "./components/write";
+import Register from "./components/register";
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 // import {}
 
@@ -57,6 +59,12 @@ const App = () => {
                         </Route>
                         <Route path="/review">
                             <Notification />
+                        </Route>
+                        <Route path="/write">
+                            <Write />
+                        </Route>
+                        <Route path="/register">
+                            <Register />
                         </Route>
                         <Route path="/">
                             <div>
