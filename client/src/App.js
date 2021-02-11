@@ -4,6 +4,7 @@ import Flevel3 from "./components/front_level3";
 import Flevel4 from "./components/front_level4";
 import Flevel5 from "./components/front_level5";
 import Notification from "./components/notification";
+import Review from "./components/review";
 import Article from "./components/article";
 import Write from "./components/write";
 import Register from "./components/register";
@@ -12,6 +13,11 @@ import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 
 
 const App = () => {
+
+    const prepare = () => {
+        alert("준비중 입니다.")
+    }
+
     return (
         <Router>
             <div className="app">
@@ -30,15 +36,15 @@ const App = () => {
                             <span>이용 후기</span>
                             <span>REVIEW</span>
                         </Link>
-                        <Link to="/shop">
+                        <Link to="/shop" onClick={prepare}>
                             <span>Alice Shop</span>
                             <span>앨리스 마켓</span>
                         </Link>
-                        <Link to="/alliance">
+                        <Link to="/alliance" onClick={prepare}>
                             <span>제휴 업체</span>
                             <span>ALLIANCE</span>
                         </Link>
-                        <Link to="/mall">
+                        <Link to="/mall" onClick={prepare}>
                             <span>상품권몰</span>
                             <span>MALL</span>
                         </Link>
@@ -58,7 +64,7 @@ const App = () => {
                             <Notification />
                         </Route>
                         <Route path="/review">
-                            <Notification />
+                            <Review />
                         </Route>
                         <Route path="/write">
                             <Write />

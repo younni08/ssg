@@ -1,19 +1,95 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const Flevel2 = () => {
     const [uid,setUid] = useState("");
     const [upw,setUpw] = useState("");
+    const [clicked,setClicked] = useState(false);
+    const [id,setId] = useState("");
+    const [login,setLogin] = useState(false);
 
-    const checkLogin = () => {
-        console.log("aa")
+    const setCookie = (name, value, exp) => {
+        var date = new Date();
+        date.setTime(date.getTime() + exp*60*60*1000*2);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
 
+    const deleteCookie = (name) => {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
     }
 
+    const getCookie = (name) => {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    }
+
+    const cutToken = (token) => {
+        if(token === null){
+            return undefined
+        }else{
+            let temp_token = token;
+            let getdot = temp_token.indexOf(".")
+            let getdot2 = temp_token.lastIndexOf(".")
+            let info = temp_token.substring(getdot+1,getdot2);
+            let info2 = atob(info)
+            let getdot3 = info2.indexOf('user_id":"');
+            let getdot4 = info2.lastIndexOf('","iat');
+            let user_id = info2.substring(getdot3+10,getdot4);
+            return user_id;
+        }
+    }
+
+    const checkLogin = async() => {
+        deleteCookie("token")
+        if(clicked===true) return alert("잠시만 기다려주세요.")
+        setClicked(true);
+        if(uid===""||uid===undefined) return alert("아이디를 입력해주세요.")
+        if(upw===""||upw===undefined) return alert("비밀번호를 입력해주세요.")
+        let url = "/api/login";
+        let params = {
+            id:uid,
+            pw:upw
+        }
+        const config = {
+            headers:{
+                "content-type":"application/json"
+            }
+        }
+        let res = await axios.post(url,params,config);
+        setClicked(false);
+        if(res.data ==="login denied") return alert("아이디 혹은 비밀번호를 다시 확인해주세요.")
+        setId(res.data.user_id)
+        setLogin(true)
+        setCookie("token",res.data.token,2)
+        console.log(res.data)
+    }
+
+    const handleId = (e) => {
+        setUid(e.target.value)
+    }
+
+    const handlePass = (e) => {
+        setUpw(e.target.value)
+    }
+
+    const logout = () => {
+        setLogin(false);
+        deleteCookie('token');
+    }
+
+    useEffect(()=>{
+        let token = getCookie("token");
+        if(token!==null){
+            setLogin(true)
+            let aa = cutToken(token)
+            setId(aa)
+            console.log(aa)
+        };
+    },[])
 
     return (
         <div>
-
             <div className="front_level2">
                 <div className="front_level2_left">
                     <div>
@@ -23,30 +99,37 @@ const Flevel2 = () => {
                     </div>
                 </div>
                 <div className="front_level2_rr">
-                    <div className="front_level2_mid">
-                        <div className="front_login_leftt">
-                            <div>
-                                <i className="xi-lock-o xi-4x"></i>
-                                <span>로그인</span>
+                    {
+                        login?
+                        <div className="front_level2_mid">
+                            <span>{id}님 환영합니다.</span>
+                            <span onClick={logout}>로그아웃</span>
+                        </div>:
+                        <div className="front_level2_mid">
+                            <div className="front_login_leftt">
+                                <div>
+                                    <i className="xi-lock-o xi-4x"></i>
+                                    <span>로그인</span>
+                                </div>
+                            </div>
+                            <div className="front_login_left">
+                                <div className="front_login_left_level1">
+                                    <span><i className="xi-profile-o xi-x"></i></span>
+                                    <input type="text" onChange={handleId}  />
+                                </div>
+                                <div className="front_login_left_level1">
+                                    <span><i className="xi-lock-o xi-x"></i></span>
+                                    <input type="password" onChange={handlePass} />
+                                </div>
+                            </div>
+                            <div className="front_login_right">
+                                <span onClick={checkLogin}>로그인</span>
+                                <div>
+                                    <Link to="/register"><span>회원가입</span></Link>
+                                </div>
                             </div>
                         </div>
-                        <div className="front_login_left">
-                            <div className="front_login_left_level1">
-                                <span><i className="xi-profile-o xi-x"></i></span>
-                                <input type="text" />
-                            </div>
-                            <div className="front_login_left_level1">
-                                <span><i className="xi-lock-o xi-x"></i></span>
-                                <input type="password" />
-                            </div>
-                        </div>
-                        <div className="front_login_right">
-                            <span onClick={checkLogin}>로그인</span>
-                            <div>
-                                <span>회원가입</span>
-                            </div>
-                        </div>
-                    </div>
+                    }
                     <div className="front_level2_right">
                         <div className="front_product_left">
                             <span><i className="xi-gift-o xi-4x"></i></span>
