@@ -76,7 +76,7 @@ const Article = () => {
     return (
         <div className="board">
             <div className="board_header">
-                <span>공지사항</span>
+                <span>이용 후기</span>
             </div>
             <div className="article">
                 <div>

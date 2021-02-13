@@ -122,9 +122,12 @@ const Write = () => {
     }
 
     useEffect(()=>{
-        // let token = getCookie("token");
-        // console.log(token);
-    })
+        let token = getCookie("token");
+        if(token===null){
+            alert("로그인 후 이용해주세요")
+            return setRedirect(true)
+        }
+    },[])
 
     function base64ToBlob(base64, mime){
         mime = mime || '';

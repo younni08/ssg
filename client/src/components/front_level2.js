@@ -92,6 +92,11 @@ const Flevel2 = () => {
         window.location.href="https://pf.kakao.com/_DmMVxb/chat";
     }
 
+    const preparing = () => {
+        return alert("상품 준비중입니다.")
+    }
+
+
     return (
         <div>
             <div className="front_level2">
@@ -107,7 +112,7 @@ const Flevel2 = () => {
                         login?
                         <div className="front_level2_mid">
                             <div className="front_level2_mid_login">
-                                <span>{id}님 환영합니다.</span>
+                                <div><span>{id}님 환영합니다.</span><Link to="/orderlist">주문 확인</Link></div>
                                 <span onClick={logout}>로그아웃</span>
                             </div>
                         </div>:
@@ -143,16 +148,22 @@ const Flevel2 = () => {
                         </div>
                         <div className="front_product_right">
                             <div className="front_product_right_leve1l">
-                                <span><i className="xi-star-o xi-x"></i> MVP대행 45만원</span>
-                                <span>구매하기</span>
+                                <span><i className="xi-star-o xi-x"></i> MVP대행 ##만원</span>
+                                <Link to="/ordermvp">
+                                    <span>구매하기</span>
+                                </Link>
                             </div>
                             <div className="front_product_right_leve1l">
-                                <span><i className="xi-star-o xi-x"></i> 넥슨 캐시 10만원</span>
-                                <span>구매하기</span>
+                                <span><i className="xi-star-o xi-x"></i> 넥슨 캐시 ##만원</span>
+                                {/* <Link to="/ordercash"> */}
+                                    <span onClick={preparing}>구매하기</span>
+                                {/* </Link> */}
                             </div>
                             <div className="front_product_right_leve1l">
-                                <span><i className="xi-star-o xi-x"></i> 메이플 포인트 10만원</span>
-                                <span>구매하기</span>
+                                <span><i className="xi-star-o xi-x"></i> 메이플 포인트 ##만원</span>
+                                <Link to="/orderpoint">
+                                    <span>구매하기</span>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -128,11 +128,8 @@ const Notification = () => {
     )
 }
 
-// 글쓰기 누를때 로그인 확인
 // 공지사항 작성은 관리자만
 // 메인에 후기 띄우는거
 // 메인에 후기 선택할 수 있게
-// 조회수 
-// 
 
 export default Notification;

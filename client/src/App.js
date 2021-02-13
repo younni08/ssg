@@ -10,12 +10,14 @@ import Article2 from "./components/article2";
 import Write from "./components/write";
 import Write2 from "./components/adminwrite";
 import Register from "./components/register";
+import Order1 from "./components/order1";
+import Order2 from "./components/order2";
+import Order3 from "./components/order3";
+import Orderlist from "./components/orderlist";
+import Orderview from "./components/orderview";
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
-// import {}
-
 
 const App = () => {
-
     const prepare = () => {
         alert("준비중 입니다.")
     }
@@ -79,6 +81,21 @@ const App = () => {
                         </Route>
                         <Route path="/register">
                             <Register />
+                        </Route>
+                        <Route path="/ordermvp">
+                            <Order1 />
+                        </Route>
+                        <Route path="/orderpoint">
+                            <Order2 />
+                        </Route>
+                        <Route path="/ordercash">
+                            <Order3 />
+                        </Route>
+                        <Route path="/orderlist">
+                            <Orderlist />
+                        </Route>
+                        <Route path="/orderview">
+                            <Orderview />
                         </Route>
                         <Route path="/">
                             <div>
