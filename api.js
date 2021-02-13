@@ -9,9 +9,16 @@ const { query } = require('express');
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
-let storage = multer.memoryStorage();
-const upload = multer({storage:storage});
-
+const upload = multer({
+    storage: multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+      },
+      filename: function (req, file, cb) {
+        cb(null, file.originalname);
+      }
+    }),
+  });
 
 // const connection = mysql.createConnection({
 //     host: 'aliceonline.shop',
@@ -137,11 +144,52 @@ router.post("/review",async(req,res)=>{
             connectionLimit: 10,
             queueLimit: 0
         })
-
-        let data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews order by id desc limit 10')
+        let data = [];
+        if(req.body.page==="1"||req.body.page===1){
+            data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews order by id desc limit 20')
+        }else{
+            let params = Number(req.body.page)*10
+            data = await db.query(`select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews order by id desc limit ${params+20} offset ${params}`)
+        }
         let data2 = await db.query('select id from reviews')
-        // let data = await db.query('select user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,re_image_type,re_image from reviews limit 10')
-        console.log(data[0][0])
+        let returnArray = [];
+        for(let i=0;i<data[0].length;i++){
+            returnArray[i] = data[0][i]
+        }
+        let datapackage = {
+            Array:returnArray,
+            length:data2[0].length
+        }
+        return res.send(datapackage)
+
+    }catch(err){
+        console.log("error on review")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+router.post("/notification",async(req,res)=>{
+    console.log(req.body);
+    try{
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        let data = [];
+        if(req.body.page==="1"||req.body.page===1){
+            data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from notification order by id desc limit 20')
+        }else{
+            let params = Number(req.body.page)*10
+            data = await db.query(`select id,user_pk,re_title,re_date,re_visible,re_view_cnt from notification order by id desc limit ${params+20} offset ${params}`)
+        }
+        let data2 = await db.query('select id from notification')
         let returnArray = [];
         for(let i=0;i<data[0].length;i++){
             returnArray[i] = data[0][i]
@@ -172,8 +220,10 @@ router.post("/article",async(req,res)=>{
             connectionLimit: 10,
             queueLimit: 0
         })
+        
         let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from reviews where id=${req.body.id}`)
-        console.log(data[0][0])
+        // await db.query(`update`)
+
         return res.send(data[0][0])
     }catch(err){
         console.log("error on article")
@@ -182,13 +232,9 @@ router.post("/article",async(req,res)=>{
     }
 })
 
-router.post("/write",upload.any(),async(req,res)=>{
-    console.log(req.body);
+router.post("/notice",async(req,res)=>{
+    console.log(req.body)
     try{
-        console.log("aaaa")
-        let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress;
-        let art_date = new Date();
-
         let db = await mysql.createConnection({
             host: 'aliceonline.shop',
             user: 'aliceonline',
@@ -199,15 +245,76 @@ router.post("/write",upload.any(),async(req,res)=>{
             connectionLimit: 10,
             queueLimit: 0
         })
+        
+        let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from notification where id=${req.body.id}`)
+        // await db.query(`update`)
 
-        // buffer to blob
-        console.log(art_date)
-        if(req.files.length===0){
+        return res.send(data[0][0])
+    }catch(err){
+        console.log("error on article")
+        console.log(err)
+        return res.send("err")
+    }
+})
+
+router.post("/getimage",async(req,res)=>{
+    console.log(req.body)
+    try{
+        if(req.body.image===undefined||req.body.image==="undefined"||req.body.image===null) return res.send("")
+        let read = fs.readFileSync(path.resolve(__dirname,"./uploads/"+req.body.image))
+        let temp = read.toString("base64");
+        return res.send(temp)
+    }catch(err){
+        console.log("error on getimage")
+        console.log(err)
+        return res.send("err")
+    }
+})
+
+router.post("/write",upload.single('image'),async(req,res)=>{
+    try{
+        let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress;
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        if(req.body.checkImage===false){
             await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}')`)
         }else{
-            let buffer = Buffer.from(req.files[0].buffer);
-            let arraybuffer = Uint8Array.from(buffer).buffer;
-            await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}','${req.files[0].mimetype}','${arraybuffer}')`)
+            await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}','${req.body.image_type}','${req.body.image_name}')`)
+        }
+
+        return res.send("success")
+    }catch(err){
+        console.log("error on write")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+router.post("/adminwrite",upload.single('image'),async(req,res)=>{
+    try{
+        let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress;
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        if(req.body.checkImage===false){
+            await db.query(`insert into notification(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}')`)
+        }else{
+            await db.query(`insert into notification(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}','${req.body.image_type}','${req.body.image_name}')`)
         }
 
         return res.send("success")

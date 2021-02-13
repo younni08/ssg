@@ -88,10 +88,14 @@ const Flevel2 = () => {
         };
     },[])
 
+    const talk = () => {
+        window.location.href="https://pf.kakao.com/_DmMVxb/chat";
+    }
+
     return (
         <div>
             <div className="front_level2">
-                <div className="front_level2_left">
+                <div className="front_level2_left" onClick={talk}>
                     <div>
                         <span><i className="xi-kakaotalk xi-4x"></i></span>
                         <span>카톡 상담 바로가기</span>
@@ -102,8 +106,10 @@ const Flevel2 = () => {
                     {
                         login?
                         <div className="front_level2_mid">
-                            <span>{id}님 환영합니다.</span>
-                            <span onClick={logout}>로그아웃</span>
+                            <div className="front_level2_mid_login">
+                                <span>{id}님 환영합니다.</span>
+                                <span onClick={logout}>로그아웃</span>
+                            </div>
                         </div>:
                         <div className="front_level2_mid">
                             <div className="front_login_leftt">

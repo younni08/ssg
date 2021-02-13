@@ -174,6 +174,22 @@ footer > div > div:last-child span{
   /* border-right:solid 2px #eaeaea; */
   /* background:#fff; */
 }
+.front_level2_mid_login{
+  display:flex;
+  width:100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.front_level2_mid_login > span:first-child{
+  font-weight:bold;
+  font-size:0.9em;
+  color:#fff;
+}
+.front_level2_mid_login > span:last-child{
+  font-weight:bold;
+  font-size:0.9em;
+}
 .front_login_leftt{
   display:flex;
   justify-content: center;
@@ -619,6 +635,10 @@ footer > div > div:last-child span{
   border-radius:5px;
   font-weight:bold;
   font-size:0.8em;
+  user-select: none;
+}
+.board_page span.hidden{
+  visibility: hidden;
 }
 /* --------------------- article ------------------------------ */
 .article{
@@ -635,6 +655,8 @@ footer > div > div:last-child span{
   padding:7px 10px;
   border-top:solid 1px #7f7f7f;
   border-bottom:solid 1px #7f7f7f;
+  user-select: none;
+  min-height:25px;
 }
 .article_title > span{
   font-weight:bold

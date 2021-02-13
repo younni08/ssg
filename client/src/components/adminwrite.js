@@ -36,7 +36,7 @@ const Write = () => {
         let token = getCookie('token');
         let user_pk = cutToken(token)
         if(token === null) return alert("로그인 후 이용하세요");
-        let url = "/api/write";
+        let url = "/api/adminwrite";
         const formData = new FormData();
         let imgCnt =0;
         const config = {
@@ -150,7 +150,7 @@ const Write = () => {
     return ( 
         <div className="board">
             <div className="board_header">
-                <span>후기 작성</span>
+                <span>공지사항</span>
             </div>
             <div className="board_body">
                 <div className="write_body">
@@ -177,11 +177,11 @@ const Write = () => {
                     </form>
                 </div>
                 <div className="write_button">
-                    <span onClick={submit}>후기 업로드</span>
+                    <span onClick={submit}>공지 업로드</span>
                 </div>
             </div>
             {
-                redirect?<Redirect to="/review" />:""
+                redirect?<Redirect to="/notification" />:""
             }
         </div>
     )

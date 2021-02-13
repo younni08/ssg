@@ -4,16 +4,24 @@ import {Link} from "react-router-dom";
 
 const Notification = () => {
     const [list,setList] = useState([]);
-    const [page,setPage] = useState(0);
+    const [pageArray,setPageArray] = useState([]);
 
     useEffect(()=>{
         init();
-    },[])
+    },[window.location.href])
 
     const init = async() => {
+        console.log("init")
+        let page = window.location.href;
+        if(page.split("review?p=")[1]===undefined){
+            page = 1;
+        }else{
+            page = page.split("review?p=")[1];
+        }
+
         let url = "/api/review";
         let params = {
-            page:1
+            page:page
         };
         const config = {
             headers:{
@@ -22,14 +30,48 @@ const Notification = () => {
         }
         let res = await axios.post(url,params,config)
         setList(res.data.Array)
-        if(res.data.length<20){
-            setPage(1)
-        }
+        let t = Math.ceil(res.data.length/20)
         console.log(res.data)
+        paging(t,page)
     }
 
-    const paging = () => {
-
+    const paging = (totalpage,currentpage) => {
+        let totalPagee = totalpage;
+        let currentPagee = currentpage;
+        let temp_viewArray = [];
+        if(totalPagee < 7||currentPagee<4){
+            for(let i=1;i<8;i++){
+                if(i<totalPagee+1){
+                    temp_viewArray[i] = i;
+                }
+            }
+        }else{
+            let limit = totalPagee-currentPagee;
+            if(currentPagee>3&&limit>2){
+                for(let i=(Number(currentPagee)-3);i<(Number(currentPagee)+4);i++){
+                    temp_viewArray[i] = i;
+                }
+            }else{
+                if(currentPagee>3&&limit>1){
+                    for(let i=(Number(currentPagee)-4);i<(Number(currentPagee)+3);i++){
+                        temp_viewArray[i] = i;
+                    }
+                }else{
+                    if(Number(currentPagee)>3&&limit>0){
+                        for(let i=(Number(currentPagee)-5);i<(Number(currentPagee)+2);i++){
+                            temp_viewArray[i] = i;
+                        }
+                    }else{
+                        if(Number(currentPagee)>3&&limit===0){
+                            for(let i=(Number(currentPagee)-6);i<(Number(currentPagee)+1);i++){
+                                temp_viewArray[i] = i;
+                            }
+                        }
+                    }
+                }   
+            }
+        }
+        setPageArray(temp_viewArray)
     }
 
 
@@ -66,12 +108,16 @@ const Notification = () => {
                 <div className="board_page">
                     <span></span>
                     <div>
-                        <span>이전</span>
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>이후</span>
+                        {
+                            pageArray?pageArray.map(c=>{
+                                console.log(c)
+                                return (
+                                    <Link to={"/review?p="+c} key={c}>
+                                        <span>{c}</span>
+                                    </Link>
+                                )
+                            }):""
+                        }
                     </div>
                     <Link to="/write">
                         <span>글쓰기</span>

@@ -6,7 +6,9 @@ import Flevel5 from "./components/front_level5";
 import Notification from "./components/notification";
 import Review from "./components/review";
 import Article from "./components/article";
+import Article2 from "./components/article2";
 import Write from "./components/write";
+import Write2 from "./components/adminwrite";
 import Register from "./components/register";
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 // import {}
@@ -60,6 +62,9 @@ const App = () => {
                         <Route path="/article">
                             <Article />
                         </Route>
+                        <Route path="/notice">
+                            <Article2 />
+                        </Route>
                         <Route path="/notification">
                             <Notification />
                         </Route>
@@ -68,6 +73,9 @@ const App = () => {
                         </Route>
                         <Route path="/write">
                             <Write />
+                        </Route>
+                        <Route path="/ssgwrite">
+                            <Write2 />
                         </Route>
                         <Route path="/register">
                             <Register />

@@ -34,10 +34,11 @@ const Article = () => {
 
     const init = async() => {
         let id = window.location.href;
-        console.log(id.split("article?a=")[1])
-        let url = "/api/article";
+        console.log(id.split("notice?a=")[1])
+        if(id.split("notice?a=")[1]===undefined) return 0;
+        let url = "/api/notice";
         let params = {
-            id:id.split("article?a=")[1]
+            id:id.split("notice?a=")[1]
         }
         const config = {
             headers:{
