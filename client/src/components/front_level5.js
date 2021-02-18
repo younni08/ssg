@@ -7,7 +7,7 @@ import parser from "html-react-parser";
 
 const Flevel5 = () => {
     const [list,setList] = useState([])
-    const [tt,setTt] = useState("")
+    // const [tt,setTt] = useState("")
     const init = async() => {
         let url = "/api/getbanner";
         let params = {
@@ -19,13 +19,13 @@ const Flevel5 = () => {
             }
         }
         let res = await axios.post(url,params,config);
-        console.log(res.data)
+        // console.log(res.data)
         let array = [];
         if(res.data!==undefined||res.data!==null||res.data!==""||res.data!=="error"){
             for(let i=0;i<res.data.length;i++){
                 let imgtag = "<img src='data:" + res.data[i].type + ";base64," + res.data[i].image + "'/>";
                 array[i] = imgtag;
-                setTt(imgtag)
+                // setTt(imgtag)
             }
             setList(array)
         }

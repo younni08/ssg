@@ -596,20 +596,19 @@ router.post("/orderview",async(req,res)=>{
 })
 
 router.post("/front",async(req,res)=>{
-    console.log(req.body)
     try{
-        // let db = await mysql.createConnection({
-        //     host: 'aliceonline.shop',
-        //     user: 'aliceonline',
-        //     database: 'aliceonline',
-        //     password: 'tlstjdrbs123~',
-        //     waitForConnections: true,
-        //     port: '3306',
-        //     connectionLimit: 10,
-        //     queueLimit: 0
-        // })
-        return res.send("aa")
-
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        let data = await db.query('select id,user_pk,re_title,re_date,re_content,re_view_cnt from reviews where re_visible=true order by id desc limit 4')        
+        return res.send(data[0])
     }catch(err){
         console.log("error on front")
         console.log(err)

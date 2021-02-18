@@ -7,8 +7,6 @@ const Article = () => {
     const [array,setArray] = useState([])
     const [content,setContent] = useState("");
     const [redirect,setRedirect] = useState(false);
-    const [dataString,setDataString] = useState("");
-    const [imageType,setImageType] = useState("");
 
     useEffect(()=>{
         init();

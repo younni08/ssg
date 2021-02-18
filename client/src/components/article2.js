@@ -7,30 +7,10 @@ const Article = () => {
     const [array,setArray] = useState([])
     const [content,setContent] = useState("");
     const [redirect,setRedirect] = useState(false);
-    const [dataString,setDataString] = useState("");
-    const [imageType,setImageType] = useState("");
 
     useEffect(()=>{
         init();
     },[])
-
-    // useEffect(()=>{
-    //     init();
-    // },[dataString])
-
-    const getImage = async(image) => {
-        let url = "/api/getimage";
-        let params = {
-            image:image
-        }
-        const config = {
-            headers:{
-                "content-type":"application/json"
-            }
-        }
-        let res = await axios.post(url,params,config);
-        setDataString(res.data)
-    }
 
     const init = async() => {
         let id = window.location.href;

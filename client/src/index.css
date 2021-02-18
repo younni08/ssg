@@ -486,6 +486,7 @@ footer > div > div:last-child span{
   margin:15px 0px 0px 0px;
   padding:0px 15px 0px 53px;
   overflow: hidden;
+  min-height:23px;
 }
 .level4_list > div > div:nth-child(1) span{
   overflow: hidden;
@@ -504,6 +505,9 @@ footer > div > div:last-child span{
   font-weight:bold;
   color:#7f7f7f;
 }
+.level4_list > div > div:nth-child(3) p{
+  margin:0
+}
 .level4_list > div > div:nth-child(3){
   display:flex;
   padding:0px 5px;
@@ -511,6 +515,8 @@ footer > div > div:last-child span{
   height:120px;
   overflow: hidden;
   font-size:0.85em;
+  align-items: flex-start;
+
 }
 .level4_list > div > div:nth-child(4){
   display:none;

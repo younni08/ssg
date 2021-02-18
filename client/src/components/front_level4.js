@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import axios from "axios";
+import parser from "html-react-parser";
 
 const Flevel4 = () => {
     const [array,setArray] = useState([]);
@@ -15,6 +16,9 @@ const Flevel4 = () => {
             }
         }
         let res = await axios.post(url,params,config);
+        if(res.data!=="error"){
+            setArray(res.data)
+        }
         console.log(res.data)
     }
 
@@ -28,68 +32,72 @@ const Flevel4 = () => {
                 <div className="level4_title">
                     <span>MVP 대행 후기</span>
                 </div>
-                <div className="level4_list">
-                    <div className="leve4_reviewbox1">
-                        <div className="leve4_reviewbox_levl1">
-                            <span>MVP 85만작 후기</span>
+                {
+                    array?
+                    <div className="level4_list">
+                        <div className="leve4_reviewbox1">
+                            <div className="leve4_reviewbox_levl1">
+                                <span>{array[0]?array[0].re_title:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl2">
+                                <span>ID :</span>
+                                <span>{array[0]?array[0].user_pk:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl3">
+                                <span>{array[0]?parser(array[0].re_content.replace("#imgLocation0","")):""}</span>
+                            </div>
+                            <div className="level4_reviewbox_levl4">
+                                <span>더보기</span>
+                            </div>
                         </div>
-                        <div className="leve4_reviewbox_levl2">
-                            <span>ID :</span>
-                            <span>기현</span>
+                        <div className="leve4_reviewbox2">
+                            <div className="leve4_reviewbox_levl1">
+                                <span>{array[1]?array[1].re_title:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl2">
+                                <span>ID :</span>
+                                <span>{array[1]?array[1].user_pk:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl3">
+                                <span>{array[1]?parser(array[1].re_content.replace("#imgLocation0","")):""}</span>
+                            </div>
+                            <div className="level4_reviewbox_levl4">
+                                <span>더보기</span>
+                            </div>
                         </div>
-                        <div className="leve4_reviewbox_levl3">
-                            <span> 다음달엔 60~70만작 해야겠네요 ㅋㅋㅋ   하루정도 소요되긴했는데 그래두 깔끔하게 처리해주셧네요 감사합니다~</span>
+                        <div className="leve4_reviewbox3">
+                            <div className="leve4_reviewbox_levl1">
+                                <span>{array[2]?array[2].re_title:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl2">
+                                <span>ID :</span>
+                                <span>{array[2]?array[2].user_pk:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl3">
+                                <span>{array[2]?parser(array[2].re_content.replace("#imgLocation0","")):""}</span>
+                            </div>
+                            <div className="level4_reviewbox_levl4">
+                                <span>더보기</span>
+                            </div>
                         </div>
-                        <div className="level4_reviewbox_levl4">
-                            <span>더보기</span>
+                        <div className="leve4_reviewbox4">
+                            <div className="leve4_reviewbox_levl1">
+                                <span>{array[3]?array[3].re_title:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl2">
+                                <span>ID :</span>
+                                <span>{array[3]?array[3].user_pk:""}</span>
+                            </div>
+                            <div className="leve4_reviewbox_levl3">
+                                <span>{array[3]?parser(array[3].re_content.replace("#imgLocation0","")):""}</span>
+                            </div>
+                            <div className="level4_reviewbox_levl4">
+                                <span>더보기</span>
+                            </div>
                         </div>
                     </div>
-                    <div className="leve4_reviewbox2">
-                        <div className="leve4_reviewbox_levl1">
-                            <span>45만작 후기!!</span>
-                        </div>
-                        <div className="leve4_reviewbox_levl2">
-                            <span>ID :</span>
-                            <span>아심뽀델</span>
-                        </div>
-                        <div className="leve4_reviewbox_levl3">
-                            <span>  처음 맡겨보는 대리작이라 걱정도 많이 됬었는데   하루도 안되는 기간에 빠르게 작업해주시고 다이아 달았습니다 ㅎㅎ   2월에도 50만 맡겨서 레드 달거에여 ㅋㅋ   감사합니다 ㅎㅎ</span>
-                        </div>
-                        <div className="level4_reviewbox_levl4">
-                            <span>더보기</span>
-                        </div>
-                    </div>
-                    <div className="leve4_reviewbox3">
-                        <div className="leve4_reviewbox_levl1">
-                            <span>mvp 골드 대리작 후기</span>
-                        </div>
-                        <div className="leve4_reviewbox_levl2">
-                            <span>ID :</span>
-                            <span>아아아안</span>
-                        </div>
-                        <div className="leve4_reviewbox_levl3">
-                            <span>  레드 달려고 일단 이번달에 54만원정도 mvp작을 부탁드렸습니다. 신청자가 약간 많으셨는지 신청하고 한 3~4일 후에 작을 해주신다고 연락왔습니다. 연락 시간이 어쩌다가 안맞아서...</span>
-                        </div>
-                        <div className="level4_reviewbox_levl4">
-                            <span>더보기</span>
-                        </div>
-                    </div>
-                    <div className="leve4_reviewbox4">
-                        <div className="leve4_reviewbox_levl1">
-                            <span>mvp 67만원 후기</span>
-                        </div>
-                        <div className="leve4_reviewbox_levl2">
-                            <span>ID :</span>
-                            <span>도료묘</span>
-                        </div>
-                        <div className="leve4_reviewbox_levl3">
-                            <span>저가 남은 금액이 애매해서 67만원 작을했습니다 처음하는 mvp라서 질문이 아주 많았는데 친절하게 계속 답변해주셔서 아주 만족도가 높습니다. 시간도 거의 2~3시간? 정도에 끝내주...</span>
-                        </div>
-                        <div className="level4_reviewbox_levl4">
-                            <span>더보기</span>
-                        </div>
-                    </div>
-                </div>
+                    :""
+                }
             </div>
         </div>
     )
