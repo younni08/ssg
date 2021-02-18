@@ -1,6 +1,27 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+import axios from "axios";
 
 const Flevel4 = () => {
+    const [array,setArray] = useState([]);
+
+    const init  = async() => {
+        let url = "/api/front";
+        let params = {
+            test:"test"
+        }
+        const config = {
+            headers:{
+                "content-type":"application/json"
+            }
+        }
+        let res = await axios.post(url,params,config);
+        console.log(res.data)
+    }
+
+    useEffect(()=>{
+        init()
+    },[])
+
     return (
         <div className="front_level4">
             <div>

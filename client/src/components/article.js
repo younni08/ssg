@@ -14,22 +14,25 @@ const Article = () => {
         init();
     },[])
 
-    // useEffect(()=>{
-    //     init();
-    // },[dataString])
+    const getCookie = (name) => {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    }
 
-    const getImage = async(image) => {
-        let url = "/api/getimage";
-        let params = {
-            image:image
+    const cutToken = (token) => {
+        if(token === null){
+            return undefined
+        }else{
+            let temp_token = token;
+            let getdot = temp_token.indexOf(".")
+            let getdot2 = temp_token.lastIndexOf(".")
+            let info = temp_token.substring(getdot+1,getdot2);
+            let info2 = atob(info)
+            let getdot3 = info2.indexOf('user_id":"');
+            let getdot4 = info2.lastIndexOf('","iat');
+            let user_id = info2.substring(getdot3+10,getdot4);
+            return user_id;
         }
-        const config = {
-            headers:{
-                "content-type":"application/json"
-            }
-        }
-        let res = await axios.post(url,params,config);
-        setDataString(res.data)
     }
 
     const init = async() => {
@@ -71,7 +74,25 @@ const Article = () => {
         console.log(res.data)
 
     }
-    // 호영두고보자
+    
+    const remove = async() => {
+        let id = window.location.href;
+        let url = "/api/bbsremove";
+        let token = getCookie("token");
+        let user_pk = cutToken(token)
+        let params = {
+            id:id.split("article?a=")[1],
+            user_pk:user_pk
+        }
+        const config = {
+            headers:{
+                "content-type":"application/json"
+            }
+        }
+        let res = await axios.post(url,params,config);
+        if(res.data==="fail") return alert("권한이 없습니다.")
+        if(res.data==="success") { setRedirect(true);return alert("삭제되었습니다.")}
+    }
 
     return (
         <div className="board">
@@ -100,6 +121,7 @@ const Article = () => {
                         <Link to="/review">
                             <span><i className="xi-bars xi-x" />&nbsp;목록</span>
                         </Link>
+                        <span onClick={remove}>삭제</span>
                     </div>
                     {
                         redirect?<Redirect to="/review" />:""

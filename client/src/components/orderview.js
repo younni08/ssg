@@ -8,12 +8,19 @@ const Orderview = () => {
     const [order3,setOrder3] = useState(false);
     const [array,setArray] = useState([]);
 
+    const getCookie = (name) => {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    }
+
     const init = async() => {
         let check = window.location.href;
         check = check.split("orderview?a=")[1]
         let url = "/api/orderview";
+        let token = getCookie("token")
         let params = {
-            id:check
+            id:check,
+            token:token
         }
         const config = {
             headers:{

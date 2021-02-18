@@ -97,7 +97,7 @@ const Notification = () => {
                                     <Link to={"notice?a="+c.id}>
                                         <span>{c.re_title}</span>
                                     </Link>
-                                    <span>{c.user_pk}</span>
+                                    <span>앨리스샵</span>
                                     <span>{c.re_date?c.re_date.split("T")[0]:""}</span>
                                     <span>{c.re_view_cnt}</span>
                                 </div>

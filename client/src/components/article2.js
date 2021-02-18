@@ -53,6 +53,7 @@ const Article = () => {
         if(res.data.re_image==="undefined"){
             setContent(res.data.re_content);
         }else{
+            console.log(res.data.re_image)
             let url = "/api/getimage";
             let params = {
                 image:res.data.re_image
@@ -72,7 +73,6 @@ const Article = () => {
         console.log(res.data)
 
     }
-    // 호영두고보자
 
     return (
         <div className="board">
@@ -85,7 +85,7 @@ const Article = () => {
                         <span>{array.re_title}</span>
                     </div>
                     <div className="article_info">
-                        <span>글쓴이: {array.user_pk}</span>
+                        <span>글쓴이: 앨리스샵</span>
                         <div>
                             <span>조회수 {array.re_view_cnt}</span>
                             {/* <span>댓글 </span> */}

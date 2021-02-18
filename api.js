@@ -121,7 +121,7 @@ router.post('/register',async(req,res) => {
         if(checkemail[0][0]!==undefined) return res.send("matching email");
 
         // await db.query(`insert into users(user_id,user_pk,user_email,user_register,user_agree1,user_agree2,user_ip) values(${id},${pass},${email},${date},true,true,${ip})`);
-        await db.query(`insert into users(user_id,user_pk,user_email,user_agree1,user_agree2,user_ip,user_register) values('${id}','${pass}','${email}',true,true,'${ip}',,CURDATE())`);
+        await db.query(`insert into users(user_id,user_pk,user_email,user_agree1,user_agree2,user_ip,user_register) values('${id}','${pass}','${email}',true,true,'${ip}',CURDATE())`);
         console.log("success")
         return res.end("success")
     }catch(err){
@@ -146,10 +146,10 @@ router.post("/review",async(req,res)=>{
         })
         let data = [];
         if(req.body.page==="1"||req.body.page===1){
-            data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews order by id desc limit 20')
+            data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews where re_visible=true order by id desc limit 20')
         }else{
             let params = Number(req.body.page)*10
-            data = await db.query(`select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews order by id desc limit ${params+20} offset ${params}`)
+            data = await db.query(`select id,user_pk,re_title,re_date,re_visible,re_view_cnt from reviews  where re_visible=true order by id desc limit ${params+20} offset ${params}`)
         }
         let data2 = await db.query('select id from reviews')
         let returnArray = [];
@@ -184,10 +184,10 @@ router.post("/notification",async(req,res)=>{
         })
         let data = [];
         if(req.body.page==="1"||req.body.page===1){
-            data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from notification order by id desc limit 20')
+            data = await db.query('select id,user_pk,re_title,re_date,re_visible,re_view_cnt from notification where re_visible=true order by id desc limit 20')
         }else{
             let params = Number(req.body.page)*10
-            data = await db.query(`select id,user_pk,re_title,re_date,re_visible,re_view_cnt from notification order by id desc limit ${params+20} offset ${params}`)
+            data = await db.query(`select id,user_pk,re_title,re_date,re_visible,re_view_cnt from notification where re_visible=true order by id desc limit ${params+20} offset ${params}`)
         }
         let data2 = await db.query('select id from notification')
         let returnArray = [];
@@ -221,7 +221,7 @@ router.post("/article",async(req,res)=>{
             queueLimit: 0
         })
         
-        let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from reviews where id=${req.body.id}`)
+        let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from reviews where id=${req.body.id} and re_visible=true`)
         await db.query(`update reviews set re_view_cnt=re_view_cnt+1 where id=${req.body.id}`)
 
         return res.send(data[0][0])
@@ -246,9 +246,8 @@ router.post("/notice",async(req,res)=>{
             queueLimit: 0
         })
         
-        let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from notification where id=${req.body.id}`)
+        let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from notification where id=${req.body.id} and re_visible=true`)
         await db.query(`update notification set re_view_cnt=re_view_cnt+1 where id=${req.body.id}`)
-        // await db.query(`update`)
 
         return res.send(data[0][0])
     }catch(err){
@@ -258,10 +257,123 @@ router.post("/notice",async(req,res)=>{
     }
 })
 
-router.post("/getimage",async(req,res)=>{
+// router.post("/notice",async(req,res)=>{
+//     console.log(req.body)
+//     try{
+//         let db = await mysql.createConnection({
+//             host: 'aliceonline.shop',
+//             user: 'aliceonline',
+//             database: 'aliceonline',
+//             password: 'tlstjdrbs123~',
+//             waitForConnections: true,
+//             port: '3306',
+//             connectionLimit: 10,
+//             queueLimit: 0
+//         })
+        
+//         let data = await db.query(`select re_content,id,user_pk,re_title,re_date,re_visible,re_view_cnt,re_image,re_image_type from notification where id=${req.body.id}`)
+//         await db.query(`update notification set re_view_cnt=re_view_cnt+1 where id=${req.body.id}`)
+//         // await db.query(`update`)
+
+//         return res.send(data[0][0])
+//     }catch(err){
+//         console.log("error on article")
+//         console.log(err)
+//         return res.send("err")
+//     }
+// })
+
+router.post("/bbsremove",async(req,res)=>{
     console.log(req.body)
     try{
+        if(req.body.id===undefined||req.body.user_pk===undefined) return res.send("fail")
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        await db.query(`update reviews set re_visible=false where id=${req.body.id} and user_pk='${req.body.user_pk}'`)
+        return res.send("success")
+    }catch(err){
+        console.log("error on bbsremove")
+        console.log(err)
+        return res.send("err")
+    }
+})
+
+router.post("/bbsremoveSuper",async(req,res)=>{
+    console.log(req.body)
+    try{
+        if(req.body.token===undefined||req.body.id===undefined) return res.send("error")
+        jwt.verify(req.body.token,jwtConfig.key);
+        let temp = req.body.token;
+        temp = temp.split(".")[1];
+        temp = temp.split(".")[0];
+        temp = atob(temp);
+        temp = temp.split('{"user_id":"')[1];
+        temp = temp.split('","iat":')[0];
+        console.log(temp)
+        if(temp!=="ssg") return res.send("error")
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        await db.query(`update reviews set re_visible=false where id=${req.body.id}`)
+        return res.send("success")
+    }catch(err){
+        console.log("error on bbsremoveSuper")
+        console.log(err)
+        return res.send("err")
+    }
+})
+
+router.post("/noticeremoveSuper",async(req,res)=>{
+    console.log(req.body)
+    try{
+        if(req.body.token===undefined||req.body.id===undefined) return res.send("error")
+        jwt.verify(req.body.token,jwtConfig.key);
+        let temp = req.body.token;
+        temp = temp.split(".")[1];
+        temp = temp.split(".")[0];
+        temp = atob(temp);
+        temp = temp.split('{"user_id":"')[1];
+        temp = temp.split('","iat":')[0];
+        console.log(temp)
+        if(temp!=="ssg") return res.send("error")
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        await db.query(`update notification set re_visible=false where id=${req.body.id}`)
+        return res.send("success")
+    }catch(err){
+        console.log("error on bbsremoveSuper")
+        console.log(err)
+        return res.send("err")
+    }
+})
+
+router.post("/getimage",async(req,res)=>{
+    try{
         if(req.body.image===undefined||req.body.image==="undefined"||req.body.image===null) return res.send("")
+        console.log(req.body)
         let read = fs.readFileSync(path.resolve(__dirname,"./uploads/"+req.body.image))
         let temp = read.toString("base64");
         return res.send(temp)
@@ -286,9 +398,9 @@ router.post("/write",upload.single('image'),async(req,res)=>{
             queueLimit: 0
         })
         if(req.body.checkImage===false){
-            await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}')`)
+            await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),true,'0','${ip}')`)
         }else{
-            await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}','${req.body.image_type}','${req.body.image_name}')`)
+            await db.query(`insert into reviews(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),true,'0','${ip}','${req.body.image_type}','${req.body.image_name}')`)
         }
 
         return res.send("success")
@@ -313,9 +425,9 @@ router.post("/adminwrite",upload.single('image'),async(req,res)=>{
             queueLimit: 0
         })
         if(req.body.checkImage===false){
-            await db.query(`insert into notification(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}')`)
+            await db.query(`insert into notification(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),true,'0','${ip}')`)
         }else{
-            await db.query(`insert into notification(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),'true','0','${ip}','${req.body.image_type}','${req.body.image_name}')`)
+            await db.query(`insert into notification(user_pk,re_title,re_content,re_date,re_visible,re_view_cnt,user_ip,re_image_type,re_image) values ('${req.body.user}','${req.body.re_title}','${req.body.re_content}',CURDATE(),true,'0','${ip}','${req.body.image_type}','${req.body.image_name}')`)
         }
 
         return res.send("success")
@@ -406,6 +518,15 @@ router.post("/orderlist",async(req,res)=>{
 
 router.post("/orderview",async(req,res)=>{
     try{
+        jwt.verify(req.body.token,jwtConfig.key);
+        let temp = req.body.token;
+        temp = temp.split(".")[1];
+        temp = temp.split(".")[0];
+        temp = atob(temp);
+        temp = temp.split('{"user_id":"')[1];
+        temp = temp.split('","iat":')[0];
+        if(temp!=="ssg") return res.send("error")
+
         let db = await mysql.createConnection({
             host: 'aliceonline.shop',
             user: 'aliceonline',
@@ -474,6 +595,136 @@ router.post("/orderview",async(req,res)=>{
     }
 })
 
+router.post("/front",async(req,res)=>{
+    console.log(req.body)
+    try{
+        // let db = await mysql.createConnection({
+        //     host: 'aliceonline.shop',
+        //     user: 'aliceonline',
+        //     database: 'aliceonline',
+        //     password: 'tlstjdrbs123~',
+        //     waitForConnections: true,
+        //     port: '3306',
+        //     connectionLimit: 10,
+        //     queueLimit: 0
+        // })
+        return res.send("aa")
+
+    }catch(err){
+        console.log("error on front")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+router.post("/inputbanner",upload.any(),async(req,res)=>{
+    try{
+        if(req.body.token===undefined) return res.send("error")
+        jwt.verify(req.body.token,jwtConfig.key);
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        await db.query(`insert into banner(banner_name,image_name,image_type,banner_visible) values('${req.files[0].originalname}','${req.files[0].originalname}','${req.files[0].mimetype}',true)`);
+        return res.send("bbbu")
+    }catch(err){
+        console.log("error on inputbanner")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+router.post("/bannerlist",upload.any(),async(req,res)=>{
+    try{
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        let result = await db.query(`select id,banner_name from banner where banner_visible=true order by id desc`);
+        return res.send(result[0])
+    }catch(err){
+        console.log("error on bannerlist")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+router.post("/removebanner",upload.any(),async(req,res)=>{
+    console.log(req.body)
+    try{
+        if(req.body.id===undefined||req.body.token===undefined) return res.send("error")
+        jwt.verify(req.body.token,jwtConfig.key);
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        let result = await db.query(`update banner set banner_visible='false' where id = '${req.body.id}'`);
+        return res.send("bubu")
+    }catch(err){
+        console.log("error on removebanner")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+router.post("/getbanner",upload.any(),async(req,res)=>{
+    console.log(req.body)
+    try{
+        let db = await mysql.createConnection({
+            host: 'aliceonline.shop',
+            user: 'aliceonline',
+            database: 'aliceonline',
+            password: 'tlstjdrbs123~',
+            waitForConnections: true,
+            port: '3306',
+            connectionLimit: 10,
+            queueLimit: 0
+        })
+        let result = await db.query(`select id,banner_name,image_type from banner where banner_visible=true order by id desc`);
+        let array = [];
+        for(let i=0;i<result[0].length;i++){
+            array[i] = {
+                name:result[0][i].banner_name,
+                type:result[0][i].image_type
+            }
+        }
+        let returnArray = []
+        for(let i=0;i<array.length;i++){
+            let read = fs.readFileSync(path.resolve(__dirname,"./uploads/"+array[i].name))
+            let temp = read.toString("base64");
+            returnArray[i]={
+                image:temp,
+                type:array[i].type
+            }
+        }
+        console.log(array)
+        return res.send(returnArray)
+    }catch(err){
+        console.log("error on banner")
+        console.log(err)
+        return res.send("error")
+    }
+})
+
+
 module.exports = router;
 
 // ############ users ############
@@ -497,11 +748,19 @@ module.exports = router;
 // 	re_title varchar(100),
 // 	re_content varchar(100),
 // 	re_date datetime,
-// 	re_image mediumblob,
+// 	re_image varchar(50),
 // 	re_image_type varchar(50),
 // 	re_visible boolean,
 // 	re_view_cnt bigint,
 // 	user_ip varchar(100)
+// );
+
+// create table banner(
+// 	id int primary key auto_increment,
+// 	banner_name varchar(100),
+// 	image_name varchar(100),
+// 	image_type varchar(50),
+// 	banner_visible boolean,
 // );
 
 // create table ordermvp(

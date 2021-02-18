@@ -7,6 +7,7 @@ const Flevel2 = () => {
     const [upw,setUpw] = useState("");
     const [clicked,setClicked] = useState(false);
     const [id,setId] = useState("");
+    const [idd,setIdd] = useState([]);
     const [login,setLogin] = useState(false);
 
     const setCookie = (name, value, exp) => {
@@ -84,7 +85,7 @@ const Flevel2 = () => {
             setLogin(true)
             let aa = cutToken(token)
             setId(aa)
-            console.log(aa)
+            setIdd([aa])
         };
     },[])
 
@@ -112,7 +113,7 @@ const Flevel2 = () => {
                         login?
                         <div className="front_level2_mid">
                             <div className="front_level2_mid_login">
-                                <div><span>{id}님 환영합니다.</span><Link to="/orderlist">주문 확인</Link></div>
+                                <div><span>{id}님 환영합니다.</span>{idd?idd.map(c=>{console.log(c);if(c==="ssg"){return(<Link to="/orderlist" key={c}>관리자 페이지</Link>)}}):""}</div>
                                 <span onClick={logout}>로그아웃</span>
                             </div>
                         </div>:

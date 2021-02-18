@@ -14,7 +14,9 @@ import Order1 from "./components/order1";
 import Order2 from "./components/order2";
 import Order3 from "./components/order3";
 import Orderlist from "./components/orderlist";
+import Banner from "./components/haddlebanner";
 import Orderview from "./components/orderview";
+import HandleReview from "./components/handlereview";
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 
 const App = () => {
@@ -96,6 +98,12 @@ const App = () => {
                         </Route>
                         <Route path="/orderview">
                             <Orderview />
+                        </Route>
+                        <Route path="/handlebanner">
+                            <Banner />
+                        </Route>
+                        <Route path="/handlereview">
+                            <HandleReview />
                         </Route>
                         <Route path="/">
                             <div>
