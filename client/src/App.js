@@ -17,6 +17,8 @@ import Orderlist from "./components/orderlist";
 import Banner from "./components/haddlebanner";
 import Orderview from "./components/orderview";
 import HandleReview from "./components/handlereview";
+import Maplemall from "./components/maplemall";
+
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 
 const App = () => {
@@ -42,9 +44,9 @@ const App = () => {
                             <span>이용 후기</span>
                             <span>REVIEW</span>
                         </Link>
-                        <Link to="/shop" onClick={prepare}>
-                            <span>Alice Shop</span>
-                            <span>앨리스 마켓</span>
+                        <Link to="/maplemall">
+                            <span>메이플 몰</span>
+                            <span>MAPLE MALL</span>
                         </Link>
                         <Link to="/alliance" onClick={prepare}>
                             <span>제휴 업체</span>
@@ -104,6 +106,9 @@ const App = () => {
                         </Route>
                         <Route path="/handlereview">
                             <HandleReview />
+                        </Route>
+                        <Route path="/maplemall">
+                            <Maplemall />
                         </Route>
                         <Route path="/">
                             <div>
