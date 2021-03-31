@@ -44,19 +44,8 @@ const Flevel5 = () => {
                 </div>
                 <div  className="level5_image">
                     <Carousel autoPlay infiniteLoop>
-                        {
-                            list?list.map((c,index)=>{
-                                return (
-                                    <div key={index}>
-                                        {
-                                            parser(c)
-                                        }
-                                        {/* <p className="legend">Legend 1</p> */}
-                                    </div>
-                                )
-                            })
-                            :""
-                        }
+                        <img src="./banner2.jpg" alt="banner" />
+                        <img src="./banner1.jpg" alt="banner" />
                     </Carousel>
                 </div>
             </div>
@@ -67,7 +56,7 @@ const Flevel5 = () => {
                 </div>
                 <div  className="level5_image">
                     <Link to="/userguide">
-
+                        <img src="./userguide.jpg" alt="userguide" />
                     </Link>
                 </div>
             </div>

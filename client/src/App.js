@@ -18,6 +18,7 @@ import Banner from "./components/haddlebanner";
 import Orderview from "./components/orderview";
 import HandleReview from "./components/handlereview";
 import Maplemall from "./components/maplemall";
+import Userguide from "./components/userguide";
 
 import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 
@@ -109,6 +110,9 @@ const App = () => {
                         </Route>
                         <Route path="/maplemall">
                             <Maplemall />
+                        </Route>
+                        <Route path="/userguide">
+                            <Userguide />
                         </Route>
                         <Route path="/">
                             <div>
