@@ -479,6 +479,7 @@ footer > div > div:last-child span{
 .level4_list{
   display:flex;
   height:300px;
+  justify-content: center;
   align-items: center;
 }
 .level4_left{
