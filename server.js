@@ -11,10 +11,4 @@ const port = process.env.port || 8001;
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Import Routes
-const api = require("./api.js");
-
-// app.use('/api', createProxyMiddleware({ target: 'localhost/8001', changeOrigin: true }));
-app.use("/api", api);
-
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -18,8 +18,9 @@ const Flevel4 = () => {
                     <div className="level4_right">
                         <div className="front_level4_right" onClick={talk}>
                             <div>
-                                <span>카톡 상담 바로가기</span>
-                                <span>클릭하시면 카톡상담으로 이동합니다</span>
+                                <span>카톡 실명 인증 후기</span>
+                                <span>카카오톡 실명 인증된 고객님들의 </span>
+                                <span>솔직한 후기입니다.</span>
                             </div>
                         </div>
                     </div>

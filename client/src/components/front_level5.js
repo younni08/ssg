@@ -44,8 +44,8 @@ const Flevel5 = () => {
                 </div>
                 <div  className="level5_image">
                     <Carousel autoPlay infiniteLoop>
-                        <img src="./banner2.jpg" alt="banner" />
                         <img src="./banner1.jpg" alt="banner" />
+                        <img src="./banner2.jpg" alt="banner" />
                     </Carousel>
                 </div>
             </div>

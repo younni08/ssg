@@ -512,10 +512,13 @@ footer > div > div:last-child span{
 }
 .front_level4_right > div span:nth-child(1){
   font-weight:bold;
-  font-size:1.4em;
+  font-size:1.4rem;
 }
 .front_level4_right > div span:nth-child(2){
-  font-size:0.7em;
+  font-size:0.8rem;
+}
+.front_level4_right > div span:nth-child(3){
+  font-size:0.8rem;
 }
 .front_level5{
   display:flex;

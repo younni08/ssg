@@ -28,7 +28,7 @@ const App = () => {
     }
 
     const talk2 = () => {
-        window.location.href="https://pf.kakao.com/_DmMVxb/chat";
+        window.location.href="https://pf.kakao.com/_DmMVxb/45169032";
     }
 
     return (
