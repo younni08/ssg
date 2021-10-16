@@ -1,7 +1,6 @@
-import React,{useEffect, useState} from "react";
+import React from "react";
 
 const Write = () => {
-
     const talk = () => {
         window.location.href="https://pf.kakao.com/_DmMVxb/chat";
     }
@@ -10,8 +9,6 @@ const Write = () => {
         <div className="board">
             <div className="board_header">
                 <span className="showall">전체 상품</span>
-                <span className="mvp">MVP 대행</span>
-                <span className="point">메이플 포인트</span>
             </div>
             <div className="board_body">
                 <div className="weeklybest">

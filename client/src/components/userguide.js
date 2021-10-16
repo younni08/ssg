@@ -1,7 +1,9 @@
-import React, { useEffect,useState } from "react";
-import {Link, Redirect} from "react-router-dom";
+import React, { useEffect } from "react";
 
 const Article = () => {
+    useEffect(()=>{
+        window.scroll(0,0)
+    },[])
 
     return (
         <div className="board">

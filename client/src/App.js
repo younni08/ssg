@@ -27,6 +27,10 @@ const App = () => {
         alert("준비중 입니다.")
     }
 
+    const talk2 = () => {
+        window.location.href="https://pf.kakao.com/_DmMVxb/chat";
+    }
+
     return (
         <Router>
             <div className="app">
@@ -41,10 +45,10 @@ const App = () => {
                             <span>공지사항</span>
                             <span>NOTIFICATION</span>
                         </Link>
-                        <Link to="/review">
+                        <div onClick={talk2}>
                             <span>이용 후기</span>
                             <span>REVIEW</span>
-                        </Link>
+                        </div>
                         <Link to="/maplemall">
                             <span>메이플 몰</span>
                             <span>MAPLE MALL</span>
