@@ -70,7 +70,7 @@ const Flevel2 = () => {
             <div className="front_level2_mobile">
                 <div>
                     <div className="mobile_front_level1">
-                        <div>
+                        <div onClick={talk}>
                             <span><i className="xi-kakaotalk xi-2x"></i></span>
                             <span>카톡 상담</span>
                             <span>바로가기</span>
@@ -78,19 +78,19 @@ const Flevel2 = () => {
                         </div>
                         <div>
                             <div className="mobile_product_right_leve1l">
-                                <span><i className="xi-star xi-x"></i> MVP대행 45만원</span>
+                                <span><i className="xi-star xi-x"></i> MVP대행 ##만원</span>
                                 <span> </span>
-                                <span>구매하기</span>
+                                <span onClick={talk} >구매하기</span>
                             </div>
                             <div className="mobile_product_right_leve1l">
-                                <span><i className="xi-star xi-x"></i> 넥슨 캐시 10만원</span>
+                                <span><i className="xi-star xi-x"></i> 넥슨 캐시 ##만원</span>
                                 <span></span>
-                                <span>구매하기</span>
+                                <span onClick={talk} >구매하기</span>
                             </div>
                             <div className="mobile_product_right_leve1l">
-                                <span><i className="xi-star xi-x"></i> 메이플 포인트 10만원</span>
+                                <span><i className="xi-star xi-x"></i> 메이플 포인트 ##만원</span>
                                 <span></span>
-                                <span>구매하기</span>
+                                <span onClick={talk} >구매하기</span>
                             </div>
                         </div>
                     </div>

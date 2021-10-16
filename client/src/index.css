@@ -617,6 +617,7 @@ footer > div > div:last-child span{
   display:flex;
   font-size:0.8em;
   justify-content: center;
+  align-items: center;
 }
 .board_content > div > span:nth-child(1){
   width:50px;
