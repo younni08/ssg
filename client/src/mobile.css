@@ -83,7 +83,8 @@
     width:calc(100% - 10px);
 }
 .level4_list{
-    width:100%;
+    width:calc(100% - 60px);
+    padding:0px 30px;
     justify-content: space-between;
     height: auto;
 }
@@ -305,6 +306,12 @@
 }
 .front_level4_right > div span:nth-child(1){
     font-size:1.2rem;
+}
+.level4_title > div:nth-child(1){
+    width:100%;
+}
+.level4_title > div:nth-child(2){
+    font-size:0.8rem;
 }
 /* mobile end */
 }

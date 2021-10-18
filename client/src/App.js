@@ -30,6 +30,9 @@ const App = () => {
     const talk2 = () => {
         window.location.href="https://pf.kakao.com/_DmMVxb/45169032";
     }
+    const talk1 = () => {
+        window.location.href="http://www.team300.co.kr/";
+    }
 
     return (
         <Router>
@@ -53,9 +56,9 @@ const App = () => {
                             <span>메이플 몰</span>
                             <span>MAPLE MALL</span>
                         </Link>
-                        <Link to="/alliance" onClick={prepare}>
+                        <Link to="/alliance" onClick={talk1}>
                             <span>제휴 업체</span>
-                            <span>ALLIANCE</span>
+                            <span>Team 300</span>
                         </Link>
                         <Link to="/mall" onClick={prepare}>
                             <span>상품권몰</span>
