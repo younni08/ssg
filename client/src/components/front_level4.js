@@ -22,8 +22,9 @@ const Flevel4 = () => {
                         <img src="./mush.gif" alt="mush" />
                     </div>
                     <div className="level4_right">
-                        <div>
+                        <div onClick={talk}>
                             <img src="./talk2.png" alt="talk" />
+                            <span>인증 후기 확인</span>
                         </div>
                     </div>
                 </div>
