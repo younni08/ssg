@@ -6,7 +6,7 @@ const Flevel2 = () => {
     }
 
     const talk = () => {
-        window.location.href="https://pf.kakao.com/_DmMVxb/chat";
+        window.location.href="https://open.kakao.com/o/sC0E5XUd";
     }
 
     return (

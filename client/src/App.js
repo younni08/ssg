@@ -28,7 +28,7 @@ const App = () => {
     }
 
     const talk2 = () => {
-        window.location.href="https://pf.kakao.com/_DmMVxb/45169032";
+        window.location.href="http://pf.kakao.com/_bZNDb/94363961";
     }
     const talk1 = () => {
         window.location.href="http://www.team300.co.kr/";
@@ -125,8 +125,8 @@ const App = () => {
                             <div>
                                 <Flevel2 />
                                 <Flevel3 />
-                                <Flevel4 />
                                 <Flevel5 />
+                                <Flevel4 />
                             </div>
                         </Route>
                     </Switch>
